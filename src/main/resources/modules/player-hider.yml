@@ -1,0 +1,20 @@
+# Toggle visibility of other players.
+player_hider:
+  enabled: true
+  slot: 8
+  disable_inventory_movement: true
+  cooldown: 3
+
+  not_hidden:
+    material: LIME_DYE
+    amount: 1
+    name: "<light_purple>Players <dark_gray>» <green>Shown <gray>(Right-Click)"
+    lore:
+      - "<gray>Click to hide all players!"
+
+  hidden:
+    material: GRAY_DYE
+    amount: 1
+    name: "<light_purple>Players <dark_gray>» <red>Hidden <gray>(Right-Click)"
+    lore:
+      - "<gray>Click to show all players!"

@@ -1,0 +1,30 @@
+# Rotating announcements with a configurable sound.
+announcements:
+  enabled: true
+  delay: 60
+  required-players: 1
+
+  sound:
+    enabled: true
+    key: "minecraft:block.note_block.pling"
+    volume: 1.0
+    pitch: 1.0
+
+  list:
+    welcome:
+      lines:
+        - "<gray>"
+        - "<gradient:#9863E7:#545eb6><bold>WELCOME</bold></gradient>"
+        - "<gray>Welcome to the server, <white>%player%</white>!"
+        - "<gray>"
+    store:
+      sound:
+        enabled: true
+        key: "minecraft:ui.toast.challenge_complete"
+        volume: 1.0
+        pitch: 1.2
+      lines:
+        - "<gray>Visit our store: <yellow>store.examplemc.net"
+    discord:
+      lines:
+        - "<gray>Join our Discord: <aqua>discord.gg/example"

@@ -1,0 +1,39 @@
+package top.sparkpixel.hub.text;
+
+import org.bukkit.Color;
+
+import java.util.Locale;
+
+public final class Colors {
+
+	private Colors() {
+	}
+
+	public static Color parse(String name) {
+		if (name == null) return null;
+		try {
+			return switch (name.toUpperCase(Locale.ROOT)) {
+				case "AQUA" -> Color.AQUA;
+				case "BLACK" -> Color.BLACK;
+				case "BLUE" -> Color.BLUE;
+				case "FUCHSIA" -> Color.FUCHSIA;
+				case "GRAY" -> Color.GRAY;
+				case "GREEN" -> Color.GREEN;
+				case "LIME" -> Color.LIME;
+				case "MAROON" -> Color.MAROON;
+				case "NAVY" -> Color.NAVY;
+				case "OLIVE" -> Color.OLIVE;
+				case "ORANGE" -> Color.ORANGE;
+				case "PURPLE" -> Color.PURPLE;
+				case "RED" -> Color.RED;
+				case "SILVER" -> Color.SILVER;
+				case "TEAL" -> Color.TEAL;
+				case "WHITE" -> Color.WHITE;
+				case "YELLOW" -> Color.YELLOW;
+				default -> null;
+			};
+		} catch (IllegalArgumentException ignored) {
+			return null;
+		}
+	}
+}

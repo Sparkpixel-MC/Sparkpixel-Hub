@@ -1,0 +1,13 @@
+# River drift boats.
+# The boat is server-authoritative: client WASD/steering input is ignored.
+drift:
+  enabled: true
+
+  # Blocks per tick. Vanilla boats are about 0.4; this should feel faster.
+  speed: 0.55
+  # Hard cap applied to the Bukkit boat entity.
+  max-speed: 2.0
+  boat-type: OAK
+
+  messages:
+    actionbar: true

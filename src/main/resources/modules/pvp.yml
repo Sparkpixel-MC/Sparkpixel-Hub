@@ -1,0 +1,56 @@
+# Region based PvP arena.
+pvp:
+  enabled: true
+
+  region:
+    world: world
+    min:
+      x: 0
+      y: 0
+      z: 0
+    max:
+      x: 0
+      y: 0
+      z: 0
+
+  kit:
+    restore-inventory: true
+    items:
+      sword:
+        slot: 0
+        material: DIAMOND_SWORD
+        name: "<red><bold>Arena Sword</bold>"
+        lore:
+          - "<gray>Only usable inside the arena."
+        enchantments:
+          - SHARPNESS: 2
+          - UNBREAKING: 3
+      golden_apple:
+        slot: 1
+        material: GOLDEN_APPLE
+        amount: 8
+      bow:
+        slot: 2
+        material: BOW
+        enchantments:
+          - INFINITY: 1
+          - UNBREAKING: 3
+      arrow:
+        slot: 3
+        material: ARROW
+        amount: 1
+      helmet:
+        slot: 36
+        material: DIAMOND_HELMET
+      chestplate:
+        slot: 37
+        material: DIAMOND_CHESTPLATE
+      leggings:
+        slot: 38
+        material: DIAMOND_LEGGINGS
+      boots:
+        slot: 39
+        material: DIAMOND_BOOTS
+
+  messages:
+    actionbar: true

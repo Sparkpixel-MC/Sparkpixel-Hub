@@ -1,0 +1,13 @@
+# Pressure plate + block launchpad.
+launchpad:
+  # Should the launchpad feature be enabled?
+  enabled: true
+  # Launch power for launchpad (max 4.0)
+  launch_power: 3.0
+  launch_power_y: 1.0
+  # Top and bottom block required to make a launchpad
+  top_block: STONE_PRESSURE_PLATE
+  bottom_block: REDSTONE_BLOCK
+  # Actions executed upon use of a launchpad
+  actions:
+    - '[SOUND] entity.bat.takeoff'

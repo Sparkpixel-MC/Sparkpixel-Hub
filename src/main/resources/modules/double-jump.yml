@@ -1,0 +1,12 @@
+# Double jump while in the lobby.
+double_jump:
+  # Should the double jump feature be enabled?
+  enabled: true
+  # Launch power for double jump (max 4.0)
+  launch_power: 1.0
+  launch_power_y: 0.9
+  # Cooldown time in seconds (0 to disable)
+  cooldown: 3
+  # Actions executed upon use of double jump
+  actions:
+    - '[SOUND] entity.bat.takeoff'

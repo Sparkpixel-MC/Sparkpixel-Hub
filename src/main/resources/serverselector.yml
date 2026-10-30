@@ -1,79 +1,34 @@
-# Server Selector GUI
-# The ID of this inventory is 'serverselector' which you can open using the [MENU] action (e.g. "[MENU] serverselector").
-# You can create more custom GUIs, just copy this entire file and paste a new one in the menus directory. The name of the file is the menu ID.
-#
-# PLAYER HEADS
-#   You can have player heads, using player names, base64 or HeadDatabase IDs.
-#   Examples
-#     Username (must have logged into the server once)
-#       material: PLAYER_HEAD
-#       username: <name>
-#
-#     Base64
-#       material: PLAYER_HEAD
-#       base64: <base64 id>
-#
-#     HeadDatabase
-#       material: PLAYER_HEAD
-#       hdb: <hdb id>
-#
-# ITEM FLAGS
-#   You can add flags to the item (https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/ItemFlag.html)
-#   Example:
-#     item_flags:
-#       - HIDE_ATTRIBUTES
-#       - HIDE_DESTROYS
-#       - HIDE_ENCHANTS
-#       - HIDE_PLACED_ON
-#       - HIDE_POTION_EFFECTS
-#       - HIDE_UNBREAKABLE
-#
-# ITEM ACTIONS
-#   All item actions can be found here https://strafbefehl.github.io/DeluxeHubReloadedDocs/goodtoknow/actions
-version: 3.7.0
+# Sparkpixel-Hub server selector
+# Menu ID = file name. Open with: [MENU] serverselector
 
-# Slots of the GUI
-slots: 27
+title: "<gradient:#9863E7:#545eb6><bold>Server Selector</bold></gradient>"
+rows: 5
 
-# Title of the GUI
-title: "Server Selector"
+# Filled into every unused slot. Set to null or remove to disable.
+filler:
+  material: BLACK_STAINED_GLASS_PANE
+  name: " "
 
-# Automatically update open inventories.
-# This can be used to update placeholders in the GUI.
-refresh:
-  enabled: false
-  rate: 40
-
-# The items inside the GUI can be listed here
 items:
-  filler:
-    material: GRAY_STAINED_GLASS_PANE
-    slot: -1 # Setting the slot to -1 will fill every empty slot, you can also do "slots: [0, 1, 2]"
   factions:
+    slot: 20
     material: TNT
-    slot: 11
-    amount: 1
-    glow: true
-    display_name: '&eFactions'
+    name: "<yellow><bold>Factions</bold>"
     lore:
-      - '&7Join now!'
-      - '&aPlaceholderAPI support!'
+      - "<gray>Competitive team survival"
+      - "<dark_gray>Click to connect"
     actions:
-      - '[CLOSE]'
-      - '[MESSAGE] &7Sending you to: &eFactions'
-      - '[PROXY] factions'
-      # For multi-world servers using Multiverse-Core, use the action:
-      # - '[CONSOLE] mvtp %player% world'
+      - "[CLOSE]"
+      - "[MESSAGE] <green>Sending you to <yellow>Factions</yellow>..."
+      - "[PROXY] factions"
   survival:
+    slot: 24
     material: GRASS_BLOCK
-    slot: 15
-    amount: 1
-    glow: false
-    display_name: '&aSurvival'
+    name: "<green><bold>Survival</bold>"
     lore:
-      - '&7Join now!'
-      - '&aMulti lore support too!'
+      - "<gray>Classic survival experience"
+      - "<dark_gray>Click to connect"
     actions:
-      - '[CLOSE]'
-      - '[MESSAGE] &7Sending you to: &eSurvival'
-      - '[PROXY] survival'
+      - "[CLOSE]"
+      - "[MESSAGE] <green>Sending you to <yellow>Survival</yellow>..."
+      - "[PROXY] survival"

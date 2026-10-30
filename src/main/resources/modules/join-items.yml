@@ -1,0 +1,30 @@
+# Items placed in the player's hotbar on join.
+custom_join_items:
+  enabled: true
+  disable_inventory_movement: true
+
+  items:
+    infobook:
+      material: BOOK
+      amount: 1
+      slot: 0
+      name: "<light_purple><bold>Server Information</bold>"
+      lore:
+        - "<gray>Right-click to see information about the server!"
+      actions:
+        - "[MESSAGE] <gray>"
+        - "[MESSAGE] <light_purple><bold>Server Information</bold>"
+        - "[MESSAGE] <gray>"
+        - "[MESSAGE] <aqua>Website: <white>www.examplemc.net"
+        - "[MESSAGE] <red>Store: <white>buy.examplemc.net"
+        - "[MESSAGE] <light_purple>Discord: <white>discord.examplemc.net"
+        - "[MESSAGE] <gray>"
+    server_selector:
+      material: NETHER_STAR
+      amount: 1
+      slot: 4
+      name: "<gradient:#9863E7:#545eb6><bold>Server Selector</bold></gradient>"
+      lore:
+        - "<gray>Right-click to open the server selector!"
+      actions:
+        - "[MENU] serverselector"

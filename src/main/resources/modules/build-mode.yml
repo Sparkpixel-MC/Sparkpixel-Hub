@@ -1,0 +1,4 @@
+# Build mode lets trusted players edit the lobby without leaving it.
+build_mode:
+  # Should privileged players see an actionbar message when build mode is turned on?
+  use_actionbar_message: true

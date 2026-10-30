@@ -1,0 +1,10 @@
+# Join settings. Join/quit chat messages are intentionally not handled here.
+join_settings:
+  spawn_join: true
+  heal: true
+  extinguish: true
+  clear_inventory: false
+
+hotbar:
+  joinslot: true
+  slot_number: 4

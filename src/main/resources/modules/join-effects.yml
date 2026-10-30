@@ -1,0 +1,29 @@
+# Effects played after a player joins.
+join_effects:
+  enabled: true
+  first-join-only: false
+
+  sound:
+    enabled: true
+    key: "minecraft:entity.player.levelup"
+    volume: 1.0
+    pitch: 1.0
+
+  firework:
+    enabled: true
+    type: BALL_LARGE
+    power: 1
+    flicker: true
+    trail: true
+    colors:
+      - AQUA
+      - RED
+      - TEAL
+      - WHITE
+
+  particles:
+    enabled: true
+    type: HAPPY_VILLAGER
+    count: 30
+    offset: 1.0
+    speed: 0.1

@@ -1,0 +1,89 @@
+# English (MiniMessage)
+locale: en_us
+name: English
+aliases: [en, en_gb, en_us, en_au, en_ca]
+
+Messages:
+  GENERAL:
+    PREFIX: "<gradient:#9863E7:#545eb6><bold>Sparkpixel-Hub</bold></gradient> <dark_gray>▏"
+    NO_PERMISSION: "%prefix% <red>You are forbidden to use this."
+    CUSTOM_COMMAND_NO_PERMISSION: "<red>You are not allowed to execute this command."
+    INVALID_PLAYER: "%prefix% <red>%player% is not online!"
+    CONFIG_RELOAD: "%prefix% <green>All configuration files reloaded in <gray>%time%ms"
+    COOLDOWN_ACTIVE: "%prefix% <red>You must wait <yellow>%time%s</yellow> before doing this again!"
+
+  GAMEMODE:
+    GAMEMODE_CHANGE: "%prefix% <gray>You have changed gamemode to <green>%gamemode%"
+    GAMEMODE_CHANGE_OTHER: "%prefix% <gray>You changed <yellow>%player%</yellow> to <green>%gamemode%"
+    GAMEMODE_INVALID: "%prefix% <yellow>%gamemode%</yellow> <red>is not a valid gamemode"
+
+  VANISH:
+    ENABLE: "%prefix% <green>You are now vanished"
+    DISABLE: "%prefix% <red>You are no longer vanished"
+
+  FLIGHT:
+    ENABLE: "%prefix% <green>Flight enabled"
+    DISABLE: "%prefix% <red>Flight disabled"
+    ENABLE_OTHER: "%prefix% <green>Enabled flight for <yellow>%player%"
+    DISABLE_OTHER: "%prefix% <red>Disabled flight for <yellow>%player%"
+
+  PLAYER_HIDER:
+    HIDDEN: "%prefix% <red>Player visibility disabled"
+    SHOWN: "%prefix% <green>Player visibility enabled"
+
+  LOBBY:
+    SET_LOBBY: "%prefix% <green>Lobby spawn point set"
+
+  DOUBLE_JUMP:
+    COOLDOWN_ACTIVE: "%prefix% <red>Wait <yellow>%time%s</yellow> before double jumping again!"
+
+  WORLD_EVENT_MODIFICATIONS:
+    ITEM_DROP: "%prefix% <red>You are not allowed to drop items."
+    ITEM_PICKUP: "%prefix% <red>You are not allowed to pick up items."
+    BLOCK_PLACE: "%prefix% <red>You are not allowed to place blocks."
+    BLOCK_BREAK: "%prefix% <red>You are not allowed to break blocks."
+    BLOCK_INTERACT: "%prefix% <red>You are not allowed to use this."
+    PLAYER_PVP: "%prefix% <red>You are not allowed to PvP here."
+
+  HOLOGRAMS:
+    EMPTY: "%prefix% <red>No holograms found."
+    ALREADY_EXISTS: "%prefix% <red>A hologram with that name already exists <gray>(%name%)"
+    INVALID_HOLOGRAM: "%prefix% <red>No hologram named <gray>(%name%)"
+    INVALID_LINE: "%prefix% <red>Could not find that hologram line."
+    SPAWNED: "%prefix% <gray>Created hologram <aqua>%name%"
+    DESPAWNED: "%prefix% <gray>Removed hologram <aqua>%name%"
+    MOVED: "%prefix% <gray>Moved hologram <aqua>%name%"
+    LINE_SET: "%prefix% <gray>Set line <aqua>%line%"
+    ADDED_LINE: "%prefix% <gray>Added a new line."
+    REMOVED_LINE: "%prefix% <gray>Removed line <aqua>%line%"
+
+  ANTI_WORLD_DOWNLOADER:
+    ADMIN_NOTIFY: "%prefix% <white>%player%</white> <red>joined with World Downloader; access has been restricted."
+
+  BUILD_MODE:
+    ENABLED_ACTION_BAR: "<gradient:#9863E7:#545eb6><bold>Sparkpixel-Hub</bold></gradient> <dark_gray>|</dark_gray> <gray>Build mode <green><bold>enabled</bold></green>. Use <aqua>/buildmode</aqua> to leave."
+    ENABLED: "%prefix% <gray>Build mode <green><bold>enabled</bold></green>."
+    DISABLED: "%prefix% <gray>Build mode <red><bold>disabled</bold></red>."
+    TARGET_NOT_FOUND: "%prefix% <red>Target <yellow>%target%</yellow> not found."
+    ENABLED_FOR_TARGET: "%prefix% <gray>Build mode enabled for <yellow>%target%</yellow>."
+    IN_PVP_MODE: "%prefix% <red>You cannot use this while in PvP mode."
+    TARGET_IN_PVP_MODE: "%prefix% <red>%target% is currently in PvP mode."
+
+  PVP:
+    ENTER: "<green>Entered the PvP arena."
+    LEAVE: "<yellow>Left the PvP arena."
+
+  TRAMPOLINE:
+    PLACED: "<green>Trampoline placed! Step on it to launch."
+    NO_PERMISSION: "<red>Only VIP players can use the trampoline."
+    NO_SPACE: "<red>There is not enough space to place the trampoline."
+    LAUNCH: "<gradient:#57F287:#00AAFF><bold>BOING!</bold></gradient>"
+
+  DRIFT:
+    NO_WATER: "<red>Stand near or look at water to spawn a drift boat."
+    FAILED: "<red>Could not seat you in the drift boat."
+    START: "<green>Drift started. Use <yellow>Shift</yellow> to leave the boat."
+
+  TELEPORTATION_BOW:
+    IN_COOLDOWN: "%prefix% <red>Wait <yellow>%time% seconds</yellow> before using this again."
+    MAX_DISTANCE_REACHED: "%prefix% <red>Max distance reached; teleport cancelled."

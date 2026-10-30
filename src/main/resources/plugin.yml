@@ -1,64 +1,64 @@
 name: ${name}
-authors: ["Strafbefehl", "ItsLewizzz"]
+authors: ["Sparkpixel"]
 version: ${version}
 description: ${description}
-website: ${url}
-api-version: 1.13
-main: dev.strafbefehl.deluxehubreloaded.DeluxeHubPlugin
+api-version: '26.3'
+main: top.sparkpixel.hub.SparkpixelHubPlugin
 loadbefore: [Essentials]
-softdepend: [PlaceholderAPI, HeadDatabase, Multiverse-Core]
+softdepend: [PlaceholderAPI, HeadDatabase, Multiverse-Core, LuckPerms, ProtocolLib]
 permissions:
-  deluxehub.*:
-    description: Gives access to all DeluxeHub permissions
+  sparkpixelhub.drift.use:
+    description: Allows spawning a drift boat
+    default: true
+  sparkpixelhub.*:
+    description: Gives access to all Sparkpixel-Hub permissions
     children:
-      deluxehub.command.*: true
-      deluxehub.bypass.*: true
-      deluxehub.alert.*: true
-      deluxehub.item.*: true
-      deluxehub.player.*: true
-      deluxehub.block.*: true
-  deluxehub.command.*:
+      sparkpixelhub.command.*: true
+      sparkpixelhub.bypass.*: true
+      sparkpixelhub.alert.*: true
+      sparkpixelhub.item.*: true
+      sparkpixelhub.player.*: true
+      sparkpixelhub.block.*: true
+      sparkpixelhub.trampoline.use: true
+  sparkpixelhub.command.*:
     description: Gives access to all command permissions
     children:
-      deluxehub.command.help: true
-      deluxehub.command.reload: true
-      deluxehub.command.scoreboard: true
-      deluxehub.command.openmenu: true
-      deluxehub.command.holograms: true
-      deluxehub.command.gamemode: true
-      deluxehub.command.gamemode.others: true
-      deluxehub.command.clearchat: true
-      deluxehub.command.lockchat: true
-      deluxehub.command.fly: true
-      deluxehub.command.fly.others: true
-      deluxehub.command.setlobby: true
-      deluxehub.command.vanish: true
-  deluxehub.bypass.*:
+      sparkpixelhub.command.help: true
+      sparkpixelhub.command.reload: true
+      sparkpixelhub.command.openmenu: true
+      sparkpixelhub.command.holograms: true
+      sparkpixelhub.command.gamemode: true
+      sparkpixelhub.command.gamemode.others: true
+      sparkpixelhub.command.fly: true
+      sparkpixelhub.command.fly.others: true
+      sparkpixelhub.command.setlobby: true
+      sparkpixelhub.command.vanish: true
+      sparkpixelhub.command.buildmode: true
+      sparkpixelhub.command.buildmode.others: true
+      sparkpixelhub.command.pvp: true
+      sparkpixelhub.command.trampoline: true
+      sparkpixelhub.command.drift: true
+  sparkpixelhub.bypass.*:
     description: Gives access to all bypass permissions
     children:
-      deluxehub.bypass.antiswear: true
-      deluxehub.bypass.commands: true
-      deluxehub.bypass.lockchat: true
-      deluxehub.bypass.antiwdl: true
-      deluxehub.bypass.doublejump: false
-  deluxehub.alert.*:
+      sparkpixelhub.bypass.antiwdl: true
+      sparkpixelhub.bypass.doublejump: false
+  sparkpixelhub.alert.*:
     description: Gives access to all alert permissions
     children:
-      deluxehub.alert.updates: true
-      deluxehub.alert.antiswear: true
-      deluxehub.alert.antiwdl: true
-  deluxehub.item.*:
+      sparkpixelhub.alert.antiwdl: true
+  sparkpixelhub.item.*:
     description: Gives access to all item based permissions
     children:
-      deluxehub.item.drop: true
-      deluxehub.item.pickup: true
-  deluxehub.player.*:
+      sparkpixelhub.item.drop: true
+      sparkpixelhub.item.pickup: true
+  sparkpixelhub.player.*:
     description: Gives access to all player based permissions
     children:
-      deluxehub.player.pvp: true
-  deluxehub.block.*:
+      sparkpixelhub.player.pvp: true
+  sparkpixelhub.block.*:
     description: Gives access to all block based permissions
     children:
-      deluxehub.block.break: true
-      deluxehub.block.place: true
-      deluxehub.block.interact: true
+      sparkpixelhub.block.break: true
+      sparkpixelhub.block.place: true
+      sparkpixelhub.block.interact: true

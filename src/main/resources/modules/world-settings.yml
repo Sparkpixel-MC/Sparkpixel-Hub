@@ -1,0 +1,24 @@
+# Lobby world protection and event rules.
+world_settings:
+  # Player
+  disable_hunger_loss: true
+  disable_fall_damage: true
+  disable_player_pvp: true
+  disable_void_death: true
+  disable_fire_damage: true
+  disable_drowning: true
+  disable_off_hand_swap: true
+  # Misc
+  disable_weather_change: true
+  disable_death_message: true
+  disable_mob_spawning: true
+  # Item entities
+  disable_item_drop: true
+  disable_item_pickup: true
+  # Blocks
+  disable_block_break: true
+  disable_block_place: true
+  disable_block_interact: true # Chest, furnace, crop temple, etc
+  disable_block_burn: true
+  disable_block_fire_spread: true
+  disable_block_leaf_decay: true

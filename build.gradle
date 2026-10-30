@@ -1,60 +1,66 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'xyz.jpenilla.run-paper' version '2.3.1'
+    id 'com.gradleup.shadow' version '9.6.1'
+    id 'xyz.jpenilla.run-paper' version '3.1.0'
 }
 
-group = 'dev.strafbefehl'
-version = '3.7.2'
-description = 'An all-in-one hub management system'
+group = 'top.sparkpixel'
+version = '4.0.0'
+description = 'Sparkpixel-Hub - modern Paper lobby suite'
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url 'https://repo.codemc.org/repository/maven-public' }
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url 'https://oss.sonatype.org/content/groups/public/' }
     maven { url 'https://jitpack.io' }
-    maven { url 'https://repo.codemc.org/repository/maven-public' }
     maven { url 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
     maven { url 'https://libraries.minecraft.net/' }
     maven { url 'https://repo.opencollab.dev/main/' }
     maven { url 'https://repo.aikar.co/content/groups/aikar/' }
-    maven { url 'https://repo.papermc.io/repository/maven-public/' }
 }
 
 dependencies {
-    // Provided dependencies
-    compileOnly 'org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT'
-    compileOnly 'net.md-5:bungeecord-chat:1.16-R0.1'
+    // Paper 26.3 API (also provides Adventure and Bungee Chat)
+    compileOnly 'io.papermc.paper:paper-api:26.3.build.231-stable'
     compileOnly 'com.mojang:authlib:1.5.25'
     compileOnly 'me.clip:placeholderapi:2.11.6'
-    compileOnly 'de.tr7zw:item-nbt-api:2.14.0'
     compileOnly 'com.github.shynixn.headdatabase:hdb-api:1.0'
+    compileOnly 'net.luckperms:api:5.4'
+    compileOnly 'net.dmulloy2:ProtocolLib:5.4.0'
 
     // Implementation dependencies (will be included in the jar)
-    implementation 'org.bstats:bstats-bukkit-lite:1.7'
     implementation 'javax.inject:javax.inject:1'
     implementation 'javax.annotation:javax.annotation-api:1.2'
-    implementation 'com.github.BGMP.CommandFramework:command-framework-bukkit:master'
-    implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT'
-    implementation 'net.kyori:adventure-api:4.21.0'
+    implementation('com.github.BGMP.CommandFramework:command-framework-bukkit:master') {
+        exclude group: 'org.bukkit'
+        exclude group: 'org.spigotmc'
+        exclude group: 'io.papermc.paper'
+        exclude group: 'dev.folia'
+    }
+    implementation('co.aikar:acf-paper:0.5.1-SNAPSHOT') {
+        exclude group: 'org.bukkit'
+        exclude group: 'org.spigotmc'
+        exclude group: 'io.papermc.paper'
+        exclude group: 'dev.folia'
+    }
 }
 
 tasks {
     runServer {
-        minecraftVersion("1.21")
+        minecraftVersion("26.3")
     }
 
     shadowJar {
         archiveClassifier.set('')
 
         // Relocate libraries to avoid conflicts
-        relocate 'org.bstats', 'dev.strafbefehl.deluxehubreloaded.libs.metrics'
-        relocate 'cl.bgmp', 'dev.strafbefehl.deluxehubreloaded.libs.command'
-        relocate 'co.aikar', 'dev.strafbefehl.deluxehubreloaded.libs.aikar'
+        relocate 'cl.bgmp', 'top.sparkpixel.hub.libs.command'
+        relocate 'co.aikar', 'top.sparkpixel.hub.libs.aikar'
 
         // Include only specified dependencies
         dependencies {
-            include(dependency('org.bstats:bstats-bukkit-lite'))
             include(dependency('com.github.BGMP.CommandFramework:command-framework-bukkit'))
             include(dependency('javax.inject:javax.inject'))
             include(dependency('co.aikar:acf-paper'))
@@ -66,7 +72,7 @@ tasks {
     }
 }
 
-def targetJavaVersion = 9
+def targetJavaVersion = 25
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -88,7 +94,7 @@ processResources {
     def props = [
             'name': rootProject.name,
             'version': project.version,
-            'description': project.description ?: 'An all-in-one hub management system',
+            'description': project.description ?: 'Sparkpixel-Hub - modern Paper lobby suite',
             'url': 'https://www.spigotmc.org/resources/118904/'
     ]
     inputs.properties props

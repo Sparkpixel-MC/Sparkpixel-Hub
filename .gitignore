@@ -5,6 +5,7 @@
 
 build/
 .gradle
+.gradle-home/
 gradle
 
 ### Intellij ###

@@ -1,0 +1,6 @@
+# Keeps the time of hub worlds fixed.
+static_time:
+  # Should StaticTime be enabled?
+  enabled: false
+  # Which time should be set permanently in hub worlds?
+  time: 12000

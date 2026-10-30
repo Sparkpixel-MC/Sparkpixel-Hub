@@ -1,0 +1,7 @@
+# Prevents the World Downloader mod from saving the lobby.
+anti_wdl:
+  # Should AntiWDL be enabled?
+  enabled: true
+  # Should players with 'sparkpixelhub.antiwdl.alert' be notified?
+  notify_admins: true
+  # There is no need to kick the player if they are running WDL as our system hooks into the mod to prevent a world download

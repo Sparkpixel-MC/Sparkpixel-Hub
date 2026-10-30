@@ -1,0 +1,20 @@
+# Teleportation bow for the lobby.
+teleportation_bow:
+  enabled: true
+  slot: 6
+  arrow_slot: 35
+  disable_inventory_movement: true
+  entity: ARROW
+  cooldown: 60
+  max_range: 100
+  item:
+    name: "<light_purple><bold>Teleportation Bow</bold>"
+    glow: true
+    lore:
+      - "<gray>Right-click to teleport where the arrow lands!"
+      - "<gray>Cooldown: <light_purple>60s"
+      - "<gray>Range: <light_purple>100 blocks"
+  arrow:
+    name: "<light_purple>Teleportation Arrow"
+    lore:
+      - "<light_purple>What a beautiful arrow!"

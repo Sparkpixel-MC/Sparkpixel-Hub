@@ -1,0 +1,89 @@
+# 简体中文（MiniMessage）
+locale: zh_cn
+name: 简体中文
+aliases: [zh, zh_cn, zh_hans, zh_sg]
+
+Messages:
+  GENERAL:
+    PREFIX: "<gradient:#9863E7:#545eb6><bold>Sparkpixel-Hub</bold></gradient> <dark_gray>▏"
+    NO_PERMISSION: "%prefix% <red>你没有权限执行此操作。"
+    CUSTOM_COMMAND_NO_PERMISSION: "<red>你不被允许执行这个命令。"
+    INVALID_PLAYER: "%prefix% <red>玩家 %player% 不在线！"
+    CONFIG_RELOAD: "%prefix% <green>所有配置文件已在 <gray>%time%ms</gray> 内重新加载"
+    COOLDOWN_ACTIVE: "%prefix% <red>你还需要等待 <yellow>%time%s</yellow> 才能再次执行此操作！"
+
+  GAMEMODE:
+    GAMEMODE_CHANGE: "%prefix% <gray>你的游戏模式已切换为 <green>%gamemode%"
+    GAMEMODE_CHANGE_OTHER: "%prefix% <gray>你已将 <yellow>%player%</yellow> 的游戏模式切换为 <green>%gamemode%"
+    GAMEMODE_INVALID: "%prefix% <yellow>%gamemode%</yellow> <red>不是有效的游戏模式"
+
+  VANISH:
+    ENABLE: "%prefix% <green>你已进入隐身状态"
+    DISABLE: "%prefix% <red>你已退出隐身状态"
+
+  FLIGHT:
+    ENABLE: "%prefix% <green>你已开启飞行"
+    DISABLE: "%prefix% <red>你已关闭飞行"
+    ENABLE_OTHER: "%prefix% <green>你已为 <yellow>%player%</yellow> 开启飞行"
+    DISABLE_OTHER: "%prefix% <red>你已为 <yellow>%player%</yellow> 关闭飞行"
+
+  PLAYER_HIDER:
+    HIDDEN: "%prefix% <red>已隐藏其他玩家"
+    SHOWN: "%prefix% <green>已显示其他玩家"
+
+  LOBBY:
+    SET_LOBBY: "%prefix% <green>大厅出生点设置成功"
+
+  DOUBLE_JUMP:
+    COOLDOWN_ACTIVE: "%prefix% <red>你还需要等待 <yellow>%time%s</yellow> 才能再次二段跳！"
+
+  WORLD_EVENT_MODIFICATIONS:
+    ITEM_DROP: "%prefix% <red>你不能丢弃物品。"
+    ITEM_PICKUP: "%prefix% <red>你不能拾取物品。"
+    BLOCK_PLACE: "%prefix% <red>你不能放置方块。"
+    BLOCK_BREAK: "%prefix% <red>你不能破坏方块。"
+    BLOCK_INTERACT: "%prefix% <red>你不能使用这个。"
+    PLAYER_PVP: "%prefix% <red>你不能在这里进行 PvP。"
+
+  HOLOGRAMS:
+    EMPTY: "%prefix% <red>没有找到任何全息投影。"
+    ALREADY_EXISTS: "%prefix% <red>已存在同名全息投影 <gray>(%name%)"
+    INVALID_HOLOGRAM: "%prefix% <red>找不到名为 <gray>(%name%)</gray> 的全息投影"
+    INVALID_LINE: "%prefix% <red>找不到该全息投影行。"
+    SPAWNED: "%prefix% <gray>已创建全息投影 <aqua>%name%"
+    DESPAWNED: "%prefix% <gray>已删除全息投影 <aqua>%name%"
+    MOVED: "%prefix% <gray>已移动全息投影 <aqua>%name%"
+    LINE_SET: "%prefix% <gray>已设置第 <aqua>%line%</aqua> 行"
+    ADDED_LINE: "%prefix% <gray>已添加新行。"
+    REMOVED_LINE: "%prefix% <gray>已删除第 <aqua>%line%</aqua> 行"
+
+  ANTI_WORLD_DOWNLOADER:
+    ADMIN_NOTIFY: "%prefix% <white>%player%</white> <red>使用世界下载模组加入，系统已限制其下载能力。"
+
+  BUILD_MODE:
+    ENABLED_ACTION_BAR: "<gradient:#9863E7:#545eb6><bold>Sparkpixel-Hub</bold></gradient> <dark_gray>|</dark_gray> <gray>建造模式已 <green><bold>开启</bold></green>。使用 <aqua>/buildmode</aqua> 退出。"
+    ENABLED: "%prefix% <gray>建造模式已 <green><bold>开启</bold></green>。"
+    DISABLED: "%prefix% <gray>建造模式已 <red><bold>关闭</bold></red>。"
+    TARGET_NOT_FOUND: "%prefix% <red>找不到目标 <yellow>%target%</yellow>。"
+    ENABLED_FOR_TARGET: "%prefix% <gray>已为 <yellow>%target%</yellow> 开启建造模式。"
+    IN_PVP_MODE: "%prefix% <red>你不能在 PvP 模式下使用此命令。"
+    TARGET_IN_PVP_MODE: "%prefix% <red>%target% 正在 PvP 模式中。"
+
+  PVP:
+    ENTER: "<green>已进入 PvP 区域。"
+    LEAVE: "<yellow>已离开 PvP 区域。"
+
+  TRAMPOLINE:
+    PLACED: "<green>蹦床已放置！站上去即可弹飞。"
+    NO_PERMISSION: "<red>只有 VIP 玩家可以使用蹦床。"
+    NO_SPACE: "<red>这里没有足够的空间放置蹦床。"
+    LAUNCH: "<gradient:#57F287:#00AAFF><bold>BOING!</bold></gradient>"
+
+  DRIFT:
+    NO_WATER: "<red>请站在水边或看向水面再生成漂流船。"
+    FAILED: "<red>无法将你安置到漂流船中。"
+    START: "<green>漂流开始。按 <yellow>Shift</yellow> 可离开船只。"
+
+  TELEPORTATION_BOW:
+    IN_COOLDOWN: "%prefix% <red>你还需要等待 <yellow>%time% 秒</yellow> 才能再次使用。"
+    MAX_DISTANCE_REACHED: "%prefix% <red>已达到最大距离，传送已取消。"

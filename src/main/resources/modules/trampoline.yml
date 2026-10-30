@@ -1,0 +1,30 @@
+# Hypixel-style VIP trampoline.
+trampoline:
+  enabled: true
+
+  allowed-groups:
+    - vip
+  fallback-permission: "sparkpixelhub.trampoline.use"
+
+  item:
+    enabled: true
+    slot: 5
+    material: SLIME_BALL
+    name: "<gradient:#57F287:#00AAFF><bold>Trampoline</bold></gradient>"
+    lore:
+      - "<gray>Right-click to place a VIP trampoline."
+      - "<dark_gray>Sparkpixel-Hub"
+
+  structure:
+    pattern:
+      - "SSS"
+      - "SSS"
+      - "SSS"
+    blocks:
+      S: SLIME_BLOCK
+    duration: 30
+
+  launch:
+    power-y: 1.4
+    sound: "minecraft:entity.firework_rocket.launch"
+    cooldown: 1
