@@ -3,6 +3,7 @@ package top.sparkpixel.hub.inventory;
 import top.sparkpixel.hub.SparkpixelHubPlugin;
 import top.sparkpixel.hub.inventory.inventories.CustomGUI;
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -91,6 +92,7 @@ public class InventoryManager {
 
 	public void onDisable() {
 		inventories.values().forEach(abstractInventory -> {
+			HandlerList.unregisterAll(abstractInventory);
 			for (UUID uuid : abstractInventory.getOpenInventories()) {
 				Player player = Bukkit.getPlayer(uuid);
 				if (player != null) player.closeInventory();

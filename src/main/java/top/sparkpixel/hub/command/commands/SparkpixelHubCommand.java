@@ -11,7 +11,8 @@ import top.sparkpixel.hub.config.Messages;
 import top.sparkpixel.hub.module.modules.player.PvPMode;
 import top.sparkpixel.hub.module.modules.player.PvpRegion;
 import top.sparkpixel.hub.module.modules.world.Trampoline;
-import top.sparkpixel.hub.module.modules.drift.DriftManager;
+import top.sparkpixel.hub.module.modules.engagement.EngagementManager;
+import top.sparkpixel.hub.module.modules.parkour.ParkourManager;
 import top.sparkpixel.hub.inventory.AbstractInventory;
 import top.sparkpixel.hub.inventory.InventoryManager;
 import top.sparkpixel.hub.module.ModuleManager;
@@ -73,9 +74,10 @@ public class SparkpixelHubCommand {
 			sender.sendMessage(Text.parse(" &d/sparkpixelhub info &8- &7&oDisplays information about the current config"));
 			sender.sendMessage(Text.parse(" &d/sparkpixelhub open <menu> &8- &7&oOpen a custom menu"));
 			sender.sendMessage(Text.parse(" &d/sparkpixelhub hologram &8- &7&oView the hologram help"));
+			sender.sendMessage(Text.parse(" &d/sparkpixelhub menu &8- &7&oOpen the hub menu"));
+			sender.sendMessage(Text.parse(" &d/sparkpixelhub parkour &8- &7&oStart / stop parkour"));
 			sender.sendMessage(Text.parse(" &d/sparkpixelhub pvp &8- &7&oConfigure the PvP region"));
 			sender.sendMessage(Text.parse(" &d/sparkpixelhub trampoline &8- &7&oPlace a trampoline"));
-			sender.sendMessage(Text.parse(" &d/sparkpixelhub drift &8- &7&oSpawn a river drift boat"));
 			sender.sendMessage("");
 			sender.sendMessage(Text.parse("  &d/vanish &8- &7&oToggle vanish mode"));
 			sender.sendMessage(Text.parse("  &d/fly &8- &7&oToggle flight mode"));
@@ -177,6 +179,91 @@ public class SparkpixelHubCommand {
 		}
 
 		/*
+		 * Hub menu, guide, parkour, feedback and stats
+		 */
+		if (args.getString(0).equalsIgnoreCase("menu") || args.getString(0).equalsIgnoreCase("guide")) {
+			if (!(sender instanceof Player player)) {
+				sender.sendMessage(Text.parse("<red>Only players can open menus."));
+				return;
+			}
+			EngagementManager engagement = (EngagementManager) plugin.getModuleManager().getModule(ModuleType.ENGAGEMENT);
+			if (engagement == null) {
+				Text.send(player, "<red>The engagement module is disabled.");
+				return;
+			}
+			engagement.open(player, args.getString(0).equalsIgnoreCase("guide") ? "guide" : "main");
+			return;
+		}
+
+		if (args.getString(0).equalsIgnoreCase("parkour")) {
+			if (!(sender instanceof Player player)) {
+				sender.sendMessage(Text.parse("<red>Only players can use parkour."));
+				return;
+			}
+			if (!sender.hasPermission(Permissions.PARKOUR_USE.getPermission())) {
+				Messages.NO_PERMISSION.send(sender);
+				return;
+			}
+			ParkourManager parkour = (ParkourManager) plugin.getModuleManager().getModule(ModuleType.PARKOUR);
+			if (parkour == null) {
+				Text.send(player, "<red>Parkour is disabled.");
+				return;
+			}
+			String action = args.argsLength() >= 2 ? args.getString(1).toLowerCase() : "start";
+			switch (action) {
+				case "stop", "leave" -> parkour.stop(player);
+				case "top", "leaderboard" -> {
+					EngagementManager engagement = (EngagementManager) plugin.getModuleManager().getModule(ModuleType.ENGAGEMENT);
+					if (engagement != null) engagement.open(player, "leaderboard");
+				}
+				default -> parkour.start(player);
+			}
+			return;
+		}
+
+		if (args.getString(0).equalsIgnoreCase("feedback")) {
+			if (!(sender instanceof Player player)) {
+				sender.sendMessage(Text.parse("<red>Only players can submit feedback."));
+				return;
+			}
+			if (!sender.hasPermission(Permissions.COMMAND_FEEDBACK.getPermission())) {
+				Messages.NO_PERMISSION.send(sender);
+				return;
+			}
+			if (args.argsLength() < 2) {
+				Text.send(player, "<yellow>Usage: /sparkpixelhub feedback <message>");
+				return;
+			}
+			String message = joinArgs(args.getOriginalArgs(), 1);
+			try {
+				java.nio.file.Path dir = new java.io.File(plugin.getDataFolder(), "data").toPath();
+				java.nio.file.Files.createDirectories(dir);
+				java.nio.file.Path file = dir.resolve("feedback.log");
+				java.nio.file.Files.writeString(file,
+						java.time.LocalDateTime.now() + " [" + player.getName() + "] " + message + System.lineSeparator(),
+						java.nio.charset.StandardCharsets.UTF_8,
+						java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
+				Text.send(player, "<green>感谢反馈！我们已经记录。");
+			} catch (Exception e) {
+				Text.send(player, "<red>反馈保存失败，请稍后再试。");
+			}
+			return;
+		}
+
+		if (args.getString(0).equalsIgnoreCase("stats")) {
+			if (!sender.hasPermission(Permissions.COMMAND_STATS.getPermission())) {
+				Messages.NO_PERMISSION.send(sender);
+				return;
+			}
+			var profiles = plugin.getProfileManager().all();
+			long coins = profiles.stream().mapToLong(p -> p.getCoins()).sum();
+			sender.sendMessage(Text.parse("<gradient:#9863E7:#545eb6><bold>Sparkpixel-Hub Stats</bold></gradient>"));
+			sender.sendMessage(Text.parse("<gray>Profiles: <white>" + profiles.size()));
+			sender.sendMessage(Text.parse("<gray>Total coins: <gold>" + coins));
+			return;
+		}
+
+		/*
 		 * PvP arena setup
 		 */
 		if (args.getString(0).equalsIgnoreCase("pvp")) {
@@ -249,28 +336,6 @@ public class SparkpixelHubCommand {
 				return;
 			}
 			trampoline.place(player);
-			return;
-		}
-
-		/*
-		 * Drift boat
-		 */
-		if (args.getString(0).equalsIgnoreCase("drift")) {
-			if (!(sender instanceof Player player)) {
-				sender.sendMessage(Text.parse("<red>Only players can spawn a drift boat."));
-				return;
-			}
-			if (!sender.hasPermission(Permissions.DRIFT_USE.getPermission())
-					&& !sender.hasPermission(Permissions.COMMAND_DRIFT.getPermission())) {
-				Messages.NO_PERMISSION.send(sender);
-				return;
-			}
-			DriftManager drift = (DriftManager) plugin.getModuleManager().getModule(ModuleType.DRIFT);
-			if (drift == null) {
-				Text.send(player, "<red>The drift module is disabled.");
-				return;
-			}
-			drift.spawn(player);
 			return;
 		}
 

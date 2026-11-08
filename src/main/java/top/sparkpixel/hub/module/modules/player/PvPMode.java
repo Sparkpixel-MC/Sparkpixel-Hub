@@ -6,6 +6,7 @@ import top.sparkpixel.hub.config.Messages;
 import top.sparkpixel.hub.module.Module;
 import top.sparkpixel.hub.module.ModuleType;
 import top.sparkpixel.hub.utility.ItemStackBuilder;
+import top.sparkpixel.hub.hook.SparkChessHook;
 import top.sparkpixel.hub.text.Text;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -144,6 +145,7 @@ public class PvPMode extends Module {
 
 	public void updateRegionState(Player player) {
 		if (region == null || !region.isValid()) return;
+		if (SparkChessHook.isInActiveGame(player)) return;
 		boolean inside = region.contains(player.getLocation());
 		boolean active = inPvp.contains(player.getUniqueId());
 
@@ -237,6 +239,7 @@ public class PvPMode extends Module {
 			attacker = shooter;
 		}
 		if (attacker == null) return;
+		if (SparkChessHook.isInActiveGame(attacker) || SparkChessHook.isInActiveGame(victim)) return;
 		if (isInPvp(attacker.getUniqueId()) && isInPvp(victim.getUniqueId())) return;
 		event.setCancelled(true);
 	}

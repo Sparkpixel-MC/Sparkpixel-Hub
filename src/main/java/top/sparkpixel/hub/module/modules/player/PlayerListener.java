@@ -17,7 +17,6 @@ public class PlayerListener extends Module {
 
 	private boolean spawnHeal;
 	private boolean extinguish;
-	private boolean clearInventory;
 
 	public PlayerListener(SparkpixelHubPlugin plugin) {
 		super(plugin, ModuleType.PLAYER_LISTENER);
@@ -28,7 +27,6 @@ public class PlayerListener extends Module {
 		FileConfiguration config = getConfig(ConfigType.SETTINGS);
 		spawnHeal = config.getBoolean("join_settings.heal", false);
 		extinguish = config.getBoolean("join_settings.extinguish", false);
-		clearInventory = config.getBoolean("join_settings.clear_inventory", false);
 	}
 
 	@Override
@@ -45,7 +43,6 @@ public class PlayerListener extends Module {
 			player.setHealth(player.getMaxHealth());
 		}
 		if (extinguish) player.setFireTicks(0);
-		if (clearInventory) player.getInventory().clear();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)

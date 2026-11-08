@@ -1,0 +1,10 @@
+# Static news shown in the main menu.
+news:
+  entries:
+    - title: "Sparkpixel-Hub 4.0"
+      lines:
+        - "<gray>新的主菜单、任务、跑酷与收集品已经上线。"
+        - "<green>欢迎反馈体验问题。"
+    - title: "本周活动"
+      lines:
+        - "<gray>跑酷计时赛与掉落派对轮换开放。"

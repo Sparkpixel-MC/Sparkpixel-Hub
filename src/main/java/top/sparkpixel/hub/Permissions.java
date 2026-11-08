@@ -18,7 +18,6 @@ public enum Permissions {
 	COMMAND_BUILD_MODE_OTHERS("command.buildmode.others"),
 	COMMAND_PVP("command.pvp"),
 	COMMAND_TRAMPOLINE("command.trampoline"),
-	COMMAND_DRIFT("command.drift"),
 
 	// Module stuff
 	ANTI_WDL_BYPASS("bypass.antiwdl"),
@@ -26,17 +25,11 @@ public enum Permissions {
 
 	ANTI_WDL_NOTIFY("alert.antiwdl"),
 
-	// Legacy system
-	EVENT_ITEM_DROP("item.drop"),
-	EVENT_ITEM_PICKUP("item.pickup"),
-	EVENT_PLAYER_PVP("player.pvp"),
-	EVENT_BLOCK_INTERACT("block.interact"),
-	EVENT_BLOCK_BREAK("block.break"),
-	EVENT_BLOCK_PLACE("block.place"),
-
 	// Trampoline fallback when LuckPerms is not installed
 	TRAMPOLINE_USE("trampoline.use"),
-	DRIFT_USE("drift.use");
+	PARKOUR_USE("parkour.use"),
+	COMMAND_STATS("command.stats"),
+	COMMAND_FEEDBACK("command.feedback");
 
 	private final String perm;
 

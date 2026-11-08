@@ -4,6 +4,7 @@ import top.sparkpixel.hub.SparkpixelHubPlugin;
 import top.sparkpixel.hub.Permissions;
 import top.sparkpixel.hub.config.ConfigType;
 import top.sparkpixel.hub.config.Messages;
+import top.sparkpixel.hub.hook.SparkChessHook;
 import top.sparkpixel.hub.hook.hooks.LuckPermsHook;
 import top.sparkpixel.hub.module.Module;
 import top.sparkpixel.hub.module.ModuleType;
@@ -176,6 +177,10 @@ public class Trampoline extends Module {
 	}
 
 	public boolean place(Player player) {
+		if (SparkChessHook.isInActiveGame(player)) {
+			Messages.TRAMPOLINE_PROTECTED.send(player);
+			return false;
+		}
 		Location base = player.getLocation().clone();
 		base.add(base.getDirection().setY(0).normalize().multiply(2));
 		base.setY(Math.floor(base.getY()));
@@ -191,6 +196,10 @@ public class Trampoline extends Module {
 		}
 		if (ground == null) {
 			Messages.TRAMPOLINE_NO_SPACE.send(player);
+			return false;
+		}
+		if (SparkChessHook.isProtectedLocation(ground)) {
+			Messages.TRAMPOLINE_PROTECTED.send(player);
 			return false;
 		}
 
@@ -209,6 +218,13 @@ public class Trampoline extends Module {
 					return false;
 				}
 				newBlocks.put(location.clone(), material);
+			}
+		}
+
+		for (Location location : newBlocks.keySet()) {
+			if (SparkChessHook.isProtectedLocation(location)) {
+				Messages.TRAMPOLINE_PROTECTED.send(player);
+				return false;
 			}
 		}
 

@@ -20,6 +20,7 @@ public class CustomCommandHandler extends Module {
 	public void onEnable() {
 		final PaperCommandManager commandManager = new PaperCommandManager(this.getPlugin());
 		commands = getPlugin().getCommandManager().getCustomCommands();
+		if (commands.isEmpty()) return;
 
 		commandManager.getCommandReplacements().addReplacement("%custom-commands",
 				this.commands.stream().map(CustomCommand::getAliases)

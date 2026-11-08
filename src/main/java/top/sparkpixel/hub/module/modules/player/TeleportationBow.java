@@ -162,16 +162,7 @@ public class TeleportationBow extends Module {
 		_entityShot.remove(ev.getEntity().getUniqueId());
 	}
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        giveBow(player);
-    }
 
-	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-	public void onRespawn(org.bukkit.event.player.PlayerRespawnEvent ev){
-		giveBow(ev.getPlayer());
-	}
 
     @Override
     public void onDisable() {}

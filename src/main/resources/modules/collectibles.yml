@@ -1,0 +1,20 @@
+# Hidden lobby collectibles. Move near the coordinates to collect.
+collectibles:
+  fountain:
+    name: "喷泉边的硬币"
+    location: "world,10,65,10"
+    radius: 2.0
+    coins: 25
+    xp: 10
+  tree:
+    name: "树顶的礼物"
+    location: "world,-10,70,10"
+    radius: 2.0
+    coins: 30
+    xp: 15
+  dock:
+    name: "码头木箱"
+    location: "world,20,64,-15"
+    radius: 2.0
+    coins: 35
+    xp: 15

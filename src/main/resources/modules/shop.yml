@@ -1,0 +1,24 @@
+# Cosmetic shop. Only cosmetic rewards, no gameplay advantage.
+shop:
+  cosmetics:
+    flame:
+      name: "烈焰足迹"
+      lore:
+        - "<gray>走过的地方留下火焰粒子"
+      material: BLAZE_POWDER
+      price: 200
+      particle: FLAME
+    heart:
+      name: "爱心足迹"
+      lore:
+        - "<gray>走过的地方留下爱心粒子"
+      material: RED_DYE
+      price: 250
+      particle: HEART
+    note:
+      name: "音符足迹"
+      lore:
+        - "<gray>走过的地方留下音符粒子"
+      material: NOTE_BLOCK
+      price: 300
+      particle: NOTE

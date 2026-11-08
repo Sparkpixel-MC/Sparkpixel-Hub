@@ -3,7 +3,6 @@ join_settings:
   spawn_join: true
   heal: true
   extinguish: true
-  clear_inventory: false
 
 hotbar:
   joinslot: true

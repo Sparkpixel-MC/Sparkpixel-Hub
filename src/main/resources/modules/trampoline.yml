@@ -7,7 +7,7 @@ trampoline:
   fallback-permission: "sparkpixelhub.trampoline.use"
 
   item:
-    enabled: true
+    enabled: false
     slot: 5
     material: SLIME_BALL
     name: "<gradient:#57F287:#00AAFF><bold>Trampoline</bold></gradient>"

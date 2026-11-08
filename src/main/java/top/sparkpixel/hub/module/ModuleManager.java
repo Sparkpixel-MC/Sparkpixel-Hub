@@ -4,7 +4,8 @@ import top.sparkpixel.hub.SparkpixelHubPlugin;
 import top.sparkpixel.hub.command.CustomCommandHandler;
 import top.sparkpixel.hub.config.ConfigType;
 import top.sparkpixel.hub.module.modules.announcement.AutoBroadcast;
-import top.sparkpixel.hub.module.modules.drift.DriftManager;
+import top.sparkpixel.hub.module.modules.engagement.EngagementManager;
+import top.sparkpixel.hub.module.modules.parkour.ParkourManager;
 import top.sparkpixel.hub.module.modules.hologram.HologramManager;
 import top.sparkpixel.hub.module.modules.hotbar.HotbarManager;
 import top.sparkpixel.hub.module.modules.player.*;
@@ -58,8 +59,9 @@ public class ModuleManager {
 		registerModule(new LobbySpawn(plugin));
 		registerModule(new PlayerVanish(plugin));
 		registerModule(new HologramManager(plugin));
+		registerModule(new ParkourManager(plugin), "parkour.enabled");
+		registerModule(new EngagementManager(plugin), "progression.enabled");
 		registerModule(new Trampoline(plugin), "trampoline.enabled");
-		registerModule(new DriftManager(plugin), "drift.enabled");
 
 		for (Module module : modules.values()) {
 			try {

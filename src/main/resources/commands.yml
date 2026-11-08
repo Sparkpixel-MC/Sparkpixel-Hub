@@ -2,24 +2,7 @@
 # | CUSTOM COMMANDS                          |
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 version: 4.0.0
-custom_commands:
-
-  # Command name, this will be used as the main command
-  website:
-    # List any aliases for the command here
-    aliases:
-      - web
-    # Actions to be executed
-    actions:
-      - '[MESSAGE] <aqua>Website: <white>www.examplemc.net'
-  clearinventory:
-    # Players will require this permission to execute this command.
-    permission: sparkpixelhub.clearinventory
-    aliases:
-      - ci
-    actions:
-      - '[CONSOLE] minecraft:clear %player%'
-      - '[MESSAGE] <light_purple>Sparkpixel-Hub <yellow>Your inventory has been cleared!'
+custom_commands: {}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # | SPARKPIXEL-HUB COMMANDS                       |

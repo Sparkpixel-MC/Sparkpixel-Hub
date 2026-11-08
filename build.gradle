@@ -22,13 +22,12 @@ repositories {
 }
 
 dependencies {
-    // Paper 26.3 API (also provides Adventure and Bungee Chat)
-    compileOnly 'io.papermc.paper:paper-api:26.3.build.231-stable'
+    // Paper 1.21.11 API (also provides Adventure and Bungee Chat)
+    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
     compileOnly 'com.mojang:authlib:1.5.25'
     compileOnly 'me.clip:placeholderapi:2.11.6'
     compileOnly 'com.github.shynixn.headdatabase:hdb-api:1.0'
     compileOnly 'net.luckperms:api:5.4'
-    compileOnly 'net.dmulloy2:ProtocolLib:5.4.0'
 
     // Implementation dependencies (will be included in the jar)
     implementation 'javax.inject:javax.inject:1'
@@ -49,7 +48,7 @@ dependencies {
 
 tasks {
     runServer {
-        minecraftVersion("26.3")
+        minecraftVersion("1.21.11")
     }
 
     shadowJar {
@@ -72,7 +71,7 @@ tasks {
     }
 }
 
-def targetJavaVersion = 25
+def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion

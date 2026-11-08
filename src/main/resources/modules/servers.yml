@@ -1,0 +1,23 @@
+# Server list shown in the main menu. Status is configurable; connect actions
+# use the existing [PROXY] action so this works with BungeeCord/Velocity.
+servers:
+  factions:
+    name: "Factions"
+    material: TNT
+    slot: 20
+    status: "在线"
+    players: "42/100"
+    lore:
+      - "<gray>团队生存与领地争夺"
+    actions:
+      - "[PROXY] factions"
+  survival:
+    name: "Survival"
+    material: GRASS_BLOCK
+    slot: 24
+    status: "在线"
+    players: "18/60"
+    lore:
+      - "<gray>经典生存体验"
+    actions:
+      - "[PROXY] survival"

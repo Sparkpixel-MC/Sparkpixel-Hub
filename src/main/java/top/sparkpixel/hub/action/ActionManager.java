@@ -30,7 +30,6 @@ public class ActionManager {
 				new SoundAction(),
 				new PotionEffectAction(),
 				new GamemodeAction(),
-				new BungeeAction(),
 				new ProxyAction(),
 				new CloseInventoryAction(),
 				new ActionbarAction(),

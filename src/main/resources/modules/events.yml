@@ -1,0 +1,14 @@
+# Rotating lobby events. Commands are executed by the console.
+events:
+  interval-minutes: 30
+  list:
+    drop-party:
+      name: "掉落派对"
+      announcement: "<gradient:#FFD166:#FF8C42><bold>活动即将开始!</bold></gradient> <gray>掉落派对将在主城广场举行。"
+      commands:
+        - "broadcast 活动: 掉落派对!"
+    parkour-rush:
+      name: "跑酷冲刺"
+      announcement: "<gradient:#57F287:#00AAFF><bold>活动即将开始!</bold></gradient> <gray>跑酷赛道开放，挑战最佳成绩。"
+      commands:
+        - "broadcast 活动: 跑酷冲刺!"

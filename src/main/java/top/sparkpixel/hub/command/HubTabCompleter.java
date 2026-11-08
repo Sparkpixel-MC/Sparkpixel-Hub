@@ -45,7 +45,7 @@ public class HubTabCompleter implements TabCompleter {
 	private List<String> completeRoot(CommandSender sender, String[] args) {
 		if (args.length == 0) return List.of();
 		if (args.length == 1) {
-			List<String> options = new ArrayList<>(List.of("help", "info", "open", "pvp", "trampoline", "drift", "hologram"));
+			List<String> options = new ArrayList<>(List.of("help", "info", "menu", "guide", "open", "pvp", "trampoline", "parkour", "feedback", "stats", "hologram"));
 			if (sender.hasPermission("sparkpixelhub.command.reload")) options.add("reload");
 			return filter(args[0], options);
 		}
@@ -53,6 +53,10 @@ public class HubTabCompleter implements TabCompleter {
 		String sub = args[0].toLowerCase(Locale.ROOT);
 		if (sub.equals("open")) {
 			if (args.length == 2) return filter(args[1], new ArrayList<>(plugin.getInventoryManager().getInventories().keySet()));
+			return List.of();
+		}
+		if (sub.equals("parkour")) {
+			if (args.length == 2) return filter(args[1], List.of("start", "stop", "top"));
 			return List.of();
 		}
 		if (sub.equals("pvp")) {

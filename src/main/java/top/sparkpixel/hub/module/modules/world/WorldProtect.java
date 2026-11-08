@@ -2,6 +2,7 @@ package top.sparkpixel.hub.module.modules.world;
 
 import top.sparkpixel.hub.SparkpixelHubPlugin;
 import top.sparkpixel.hub.Permissions;
+import top.sparkpixel.hub.hook.SparkChessHook;
 import top.sparkpixel.hub.config.ConfigType;
 import top.sparkpixel.hub.config.Messages;
 import top.sparkpixel.hub.cooldown.CooldownType;
@@ -135,10 +136,8 @@ public class WorldProtect extends Module {
     public void onSignChange(SignChangeEvent event) {
         Player player = event.getPlayer();
         if (inDisabledWorld(player.getLocation())) return;
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
+        if (SparkChessHook.isInActiveGame(player)) return;
 
         event.setCancelled(true);
         if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
@@ -164,10 +163,8 @@ public class WorldProtect extends Module {
 
         Player player = event.getPlayer();
         if (inDisabledWorld(player.getLocation())) return;
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_BREAK.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
+        if (SparkChessHook.isInActiveGame(player) || SparkChessHook.isProtectedLocation(event.getBlock().getLocation())) return;
 
         event.setCancelled(true);
 
@@ -185,6 +182,7 @@ public class WorldProtect extends Module {
         ItemStack item = event.getItemInHand();
         if (item.getType() == Material.AIR) return;
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
+        if (SparkChessHook.isInActiveGame(player) || SparkChessHook.isProtectedLocation(event.getBlock().getLocation())) return;
 
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
@@ -193,10 +191,6 @@ public class WorldProtect extends Module {
                 event.setCancelled(true);
                 return;
             }
-        }
-
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_PLACE.getPermission())) return;
         }
 
 
@@ -212,12 +206,11 @@ public class WorldProtect extends Module {
         if (!blockInteract || inDisabledWorld(event.getPlayer().getLocation())) return;
 
         Player player = event.getPlayer();
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
+        if (SparkChessHook.isInActiveGame(player)) return;
         Block block = event.getClickedBlock();
         if (block == null) return;
+        if (SparkChessHook.isProtectedLocation(block.getLocation())) return;
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Material type = block.getType();
@@ -277,11 +270,7 @@ public class WorldProtect extends Module {
         Player player = event.getPlayer();
 
         if (inDisabledWorld(player.getLocation())) return;
-
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_ITEM_DROP.getPermission())) return;
-        }
-
+        if (SparkChessHook.isInActiveGame(player)) return;
 
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
 
@@ -298,9 +287,7 @@ public class WorldProtect extends Module {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
             if (inDisabledWorld(player.getLocation())) return;
-            if (config.getBoolean("legacySystems.permissionsEnabled")) {
-                if (player.hasPermission(Permissions.EVENT_ITEM_PICKUP.getPermission())) return;
-            }
+            if (SparkChessHook.isInActiveGame(player)) return;
             if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
             event.setCancelled(true);
             if (tryCooldown(player.getUniqueId(), CooldownType.ITEM_PICKUP, 3)) {
@@ -345,6 +332,7 @@ public class WorldProtect extends Module {
         Player player = (Player) event.getEntity();
         if (inDisabledWorld(player.getLocation())) return;
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
+        if (SparkChessHook.isInActiveGame(player)) return;
         PvPMode pvpMode = (PvPMode) getPlugin().getModuleManager().getModule(ModuleType.PVP_MODE);
         EntityDamageEvent.DamageCause cause = event.getCause();
         switch (cause) {
@@ -382,6 +370,7 @@ public class WorldProtect extends Module {
         if (event.getDamager() instanceof Player player) attacker = player;
         else if (event.getDamager() instanceof Projectile projectile && projectile.getShooter() instanceof Player shooter) attacker = shooter;
         if (attacker == null) return;
+        if (SparkChessHook.isInActiveGame(attacker) || SparkChessHook.isInActiveGame(victim)) return;
 
         PvPMode pvp = (PvPMode) getPlugin().getModuleManager().getModule(ModuleType.PVP_MODE);
         if (pvp == null || !pvp.isInPvp(attacker.getUniqueId()) || !pvp.isInPvp(victim.getUniqueId())) {
@@ -398,9 +387,6 @@ public class WorldProtect extends Module {
 
         if (entity instanceof Painting || entity instanceof ItemFrame && player instanceof Player) {
             if (player != null) {
-                if (config.getBoolean("legacySystems.permissionsEnabled")) {
-                    if (player.hasPermission(Permissions.EVENT_BLOCK_BREAK.getPermission())) return;
-                }
                 if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
                 event.setCancelled(true);
                 if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_BREAK, 3)) {
@@ -416,9 +402,6 @@ public class WorldProtect extends Module {
         if (!blockInteract || inDisabledWorld(event.getRightClicked().getLocation())) return;
         Entity entity = event.getRightClicked();
         Entity player = event.getPlayer();
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
 
         if (entity instanceof ItemFrame) {
@@ -438,9 +421,6 @@ public class WorldProtect extends Module {
 
         if (entity instanceof ItemFrame && damager instanceof Player) {
             Player player = (Player) damager;
-            if (config.getBoolean("legacySystems.permissionsEnabled")) {
-                if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-            }
             if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
             event.setCancelled(true);
             if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
@@ -454,10 +434,6 @@ public class WorldProtect extends Module {
     public void onEntityInteract(PlayerTakeLecternBookEvent event) {
         if (!blockInteract || inDisabledWorld(event.getLectern().getLocation())) return;
         Entity player = event.getPlayer();
-
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
 
         event.setCancelled(true);
@@ -471,9 +447,6 @@ public class WorldProtect extends Module {
         if (!blockInteract || inDisabledWorld(event.getPlayer().getLocation())) return;
 
         Player player = event.getPlayer();
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
 
         // Check for all boat types
@@ -492,10 +465,6 @@ public class WorldProtect extends Module {
 
         Entity entity = event.getRightClicked();
         Player player = event.getPlayer();
-
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
 
         if (entity instanceof Boat) {
@@ -512,10 +481,6 @@ public class WorldProtect extends Module {
 
         if (!(event.getAttacker() instanceof Player)) return;
         Player player = (Player) event.getAttacker();
-
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_BREAK.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
 
         if (event.getVehicle() instanceof Boat || event.getVehicle() instanceof Minecart) {
@@ -528,10 +493,9 @@ public class WorldProtect extends Module {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (event.getPlayer().hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(event.getPlayer().getUniqueId())) return;
+        if (SparkChessHook.isInActiveGame(event.getPlayer())) return;
+        if (event.getClickedBlock() != null && SparkChessHook.isProtectedLocation(event.getClickedBlock().getLocation())) return;
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock != null && (clickedBlock.getType() == Material.CHISELED_BOOKSHELF || clickedBlock.getType() == Material.DECORATED_POT)) {
@@ -550,10 +514,6 @@ public class WorldProtect extends Module {
 
         Entity entity = event.getRightClicked();
         Player player = event.getPlayer();
-
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
 
         if (entity instanceof Minecart ||
@@ -573,9 +533,6 @@ public class WorldProtect extends Module {
         if (!blockInteract || inDisabledWorld(event.getPlayer().getLocation())) return;
 
         Player player = event.getPlayer();
-        if (config.getBoolean("legacySystems.permissionsEnabled")) {
-            if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        }
         if (BuildMode.getInstance().isPresent(player.getUniqueId())) return;
 
         // Check for all minecart types

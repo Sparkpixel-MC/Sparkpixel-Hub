@@ -1,5 +1,5 @@
 # Sparkpixel-Hub
-# Paper 26.3 / Java 25
+# Paper 1.21.11 / Java 21
 #
 # config.yml contains only bootstrap settings.
 # Feature settings live in modules/*.yml, translations in lang/*.yml.
@@ -18,6 +18,3 @@ disabled-worlds:
   invert: false
   worlds:
     - world_nether
-
-legacySystems:
-  permissionsEnabled: false

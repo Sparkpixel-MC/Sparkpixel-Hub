@@ -2,13 +2,13 @@ name: ${name}
 authors: ["Sparkpixel"]
 version: ${version}
 description: ${description}
-api-version: '26.3'
+api-version: '1.21.11'
 main: top.sparkpixel.hub.SparkpixelHubPlugin
 loadbefore: [Essentials]
-softdepend: [PlaceholderAPI, HeadDatabase, Multiverse-Core, LuckPerms, ProtocolLib]
+softdepend: [PlaceholderAPI, HeadDatabase, Multiverse-Core, LuckPerms, SparkChess]
 permissions:
-  sparkpixelhub.drift.use:
-    description: Allows spawning a drift boat
+  sparkpixelhub.parkour.use:
+    description: Allows starting the lobby parkour
     default: true
   sparkpixelhub.*:
     description: Gives access to all Sparkpixel-Hub permissions
@@ -16,9 +16,6 @@ permissions:
       sparkpixelhub.command.*: true
       sparkpixelhub.bypass.*: true
       sparkpixelhub.alert.*: true
-      sparkpixelhub.item.*: true
-      sparkpixelhub.player.*: true
-      sparkpixelhub.block.*: true
       sparkpixelhub.trampoline.use: true
   sparkpixelhub.command.*:
     description: Gives access to all command permissions
@@ -37,7 +34,8 @@ permissions:
       sparkpixelhub.command.buildmode.others: true
       sparkpixelhub.command.pvp: true
       sparkpixelhub.command.trampoline: true
-      sparkpixelhub.command.drift: true
+      sparkpixelhub.command.stats: true
+      sparkpixelhub.command.feedback: true
   sparkpixelhub.bypass.*:
     description: Gives access to all bypass permissions
     children:
@@ -47,18 +45,3 @@ permissions:
     description: Gives access to all alert permissions
     children:
       sparkpixelhub.alert.antiwdl: true
-  sparkpixelhub.item.*:
-    description: Gives access to all item based permissions
-    children:
-      sparkpixelhub.item.drop: true
-      sparkpixelhub.item.pickup: true
-  sparkpixelhub.player.*:
-    description: Gives access to all player based permissions
-    children:
-      sparkpixelhub.player.pvp: true
-  sparkpixelhub.block.*:
-    description: Gives access to all block based permissions
-    children:
-      sparkpixelhub.block.break: true
-      sparkpixelhub.block.place: true
-      sparkpixelhub.block.interact: true

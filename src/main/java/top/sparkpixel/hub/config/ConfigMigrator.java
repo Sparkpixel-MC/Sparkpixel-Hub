@@ -56,7 +56,25 @@ public class ConfigMigrator {
 		boolean changes = addMissingEntries(defaultConfig, currentConfig, "");
 
 		if ("modules/join.yml".equals(resourcePath)) {
-			for (String removed : new String[]{"join_leave_messages", "join_events", "join_settings.firework"}) {
+			for (String removed : new String[]{"join_leave_messages", "join_events", "join_settings.firework", "join_settings.clear_inventory"}) {
+				if (currentConfig.contains(removed)) {
+					currentConfig.set(removed, null);
+					changes = true;
+				}
+			}
+		}
+
+		if ("modules/world-settings.yml".equals(resourcePath)) {
+			for (String removed : new String[]{"world_settings.disable_player_pvp", "world_settings.disable_off_hand_swap"}) {
+				if (currentConfig.contains(removed)) {
+					currentConfig.set(removed, null);
+					changes = true;
+				}
+			}
+		}
+
+		if ("commands.yml".equals(resourcePath)) {
+			for (String removed : new String[]{"custom_commands.website", "custom_commands.clearinventory"}) {
 				if (currentConfig.contains(removed)) {
 					currentConfig.set(removed, null);
 					changes = true;
@@ -71,7 +89,7 @@ public class ConfigMigrator {
 
 		if ("config.yml".equals(resourcePath)) {
 			// Removed features: scoreboard, tablist, chat management and join messages.
-			for (String removed : new String[]{"scoreboard", "check-updates", "tablist", "join_leave_messages", "join_events", "anti_swear", "command_block", "pvp_mode"}) {
+			for (String removed : new String[]{"scoreboard", "check-updates", "tablist", "join_leave_messages", "join_events", "anti_swear", "command_block", "pvp_mode", "legacySystems"}) {
 				if (currentConfig.contains(removed)) {
 					currentConfig.set(removed, null);
 					changes = true;

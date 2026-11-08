@@ -1,0 +1,106 @@
+# Lobby progression, daily login, quests, achievements and retention.
+progression:
+  enabled: true
+
+  menu-item:
+    material: COMPASS
+    slot: 4
+    name: "<gradient:#9863E7:#545eb6><bold>Sparkpixel Hub</bold></gradient>"
+    lore:
+      - "<gray>右键打开大厅主菜单"
+      - "<dark_gray>任务、签到、跑酷、商店"
+
+  default-trail: "flame"
+
+  social:
+    friends: "暂无"
+    guild: "暂无"
+
+  playtime:
+    coins-per-minute: 1
+    xp-per-minute: 1
+
+  daily-login:
+    base-coins: 50
+    streak-bonus: 10
+    max-streak-bonus: 100
+
+  return-reward:
+    days: 7
+    coins: 200
+    xp: 100
+
+  quests:
+    daily:
+      parkour:
+        name: "完成一次跑酷"
+        type: PARKOUR_FINISH
+        target: 1
+        coins: 50
+        xp: 20
+      collect:
+        name: "发现一个收集品"
+        type: COLLECTIBLE
+        target: 1
+        coins: 30
+        xp: 15
+      playtime:
+        name: "在大厅游玩 10 分钟"
+        type: PLAYTIME
+        target: 10
+        coins: 40
+        xp: 20
+    weekly:
+      parkour3:
+        name: "完成三次跑酷"
+        type: PARKOUR_FINISH
+        target: 3
+        coins: 150
+        xp: 60
+      playtime60:
+        name: "本周游玩 60 分钟"
+        type: PLAYTIME
+        target: 60
+        coins: 120
+        xp: 50
+
+  achievements:
+    first-parkour:
+      name: "初次起跑"
+      description:
+        - "<gray>完成第一次跑酷"
+      type: PARKOUR_FINISH
+      target: 1
+      coins: 100
+      xp: 30
+    collector:
+      name: "寻宝新手"
+      description:
+        - "<gray>收集 5 个大厅收集品"
+      type: COLLECTIBLE
+      target: 5
+      coins: 250
+      xp: 80
+    veteran:
+      name: "大厅常客"
+      description:
+        - "<gray>累计游玩 60 分钟"
+      type: PLAYTIME
+      target: 60
+      coins: 200
+      xp: 60
+    level5:
+      name: "渐入佳境"
+      description:
+        - "<gray>达到 5 级"
+      type: LEVEL
+      target: 5
+      coins: 300
+      xp: 100
+
+seasonal:
+  enabled: true
+  name: "丰收节"
+  start: "10-01"
+  end: "10-31"
+  daily-bonus: 20

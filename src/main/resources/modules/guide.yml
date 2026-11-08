@@ -1,0 +1,17 @@
+# New player guide. The longer narrative is in GUIDE_STORY.md.
+guide:
+  steps:
+    - title: "第一步：认识大厅"
+      lines:
+        - "<gray>右键主菜单物品，打开 Sparkpixel Hub。"
+        - "<gray>先看看每日签到和任务。"
+    - title: "第二步：跑一次跑酷"
+      lines:
+        - "<gray>打开「跑酷」菜单，点击开始。"
+        - "<gray>到达终点即可获得金币和经验。"
+    - title: "第三步：寻找收集品"
+      lines:
+        - "<gray>大厅里藏着收集品，靠近即可拾取。"
+    - title: "第四步：选择服务器"
+      lines:
+        - "<gray>打开「服务器选择」，前往你想玩的服务器。"

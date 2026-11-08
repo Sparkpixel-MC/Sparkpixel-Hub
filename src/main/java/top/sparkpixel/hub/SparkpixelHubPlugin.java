@@ -12,6 +12,7 @@ import top.sparkpixel.hub.hook.HooksManager;
 import top.sparkpixel.hub.inventory.InventoryManager;
 import top.sparkpixel.hub.module.ModuleManager;
 import top.sparkpixel.hub.module.ModuleType;
+import top.sparkpixel.hub.profile.PlayerDataManager;
 import top.sparkpixel.hub.module.modules.hologram.HologramManager;
 import top.sparkpixel.hub.module.modules.world.BuildMode;
 import top.sparkpixel.hub.text.Text;
@@ -33,12 +34,14 @@ public class SparkpixelHubPlugin extends JavaPlugin {
 	private ModuleManager moduleManager;
 	private InventoryManager inventoryManager;
 	private Version currentVersion;
+	private PlayerDataManager profileManager;
 
 	public void onEnable() {
 		long start = System.currentTimeMillis();
 		getLogger().log(Level.INFO, "Sparkpixel-Hub - modern Paper lobby suite");
 
 		NamespacedKeys.registerKeys();
+		profileManager = new PlayerDataManager(this);
 
 		hooksManager = new HooksManager(this);
 
@@ -71,6 +74,7 @@ public class SparkpixelHubPlugin extends JavaPlugin {
 	public void onDisable() {
 		Bukkit.getScheduler().cancelTasks(this);
 		if (moduleManager != null) moduleManager.unloadModules();
+		if (profileManager != null) profileManager.saveAll();
 		if (inventoryManager != null) inventoryManager.onDisable();
 	}
 
@@ -121,6 +125,7 @@ public class SparkpixelHubPlugin extends JavaPlugin {
 	public CooldownManager getCooldownManager() { return cooldownManager; }
 	public InventoryManager getInventoryManager() { return inventoryManager; }
 	public ConfigManager getConfigManager() { return configManager; }
+	public PlayerDataManager getProfileManager() { return profileManager; }
 	public top.sparkpixel.hub.locale.LanguageManager getLanguageManager() { return configManager.getLanguageManager(); }
 	public Version getCurrentVersion() { return currentVersion; }
 	public ActionManager getActionManager() { return actionManager; }

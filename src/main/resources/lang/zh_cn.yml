@@ -69,6 +69,9 @@ Messages:
     IN_PVP_MODE: "%prefix% <red>你不能在 PvP 模式下使用此命令。"
     TARGET_IN_PVP_MODE: "%prefix% <red>%target% 正在 PvP 模式中。"
 
+  PARKOUR:
+    NOT_CONFIGURED: "<red>跑酷赛道尚未配置。"
+
   PVP:
     ENTER: "<green>已进入 PvP 区域。"
     LEAVE: "<yellow>已离开 PvP 区域。"
@@ -79,10 +82,7 @@ Messages:
     NO_SPACE: "<red>这里没有足够的空间放置蹦床。"
     LAUNCH: "<gradient:#57F287:#00AAFF><bold>BOING!</bold></gradient>"
 
-  DRIFT:
-    NO_WATER: "<red>请站在水边或看向水面再生成漂流船。"
-    FAILED: "<red>无法将你安置到漂流船中。"
-    START: "<green>漂流开始。按 <yellow>Shift</yellow> 可离开船只。"
+    PROTECTED: "<red>不能在 SparkChess 棋盘或牌桌上放置蹦床。"
 
   TELEPORTATION_BOW:
     IN_COOLDOWN: "%prefix% <red>你还需要等待 <yellow>%time% 秒</yellow> 才能再次使用。"

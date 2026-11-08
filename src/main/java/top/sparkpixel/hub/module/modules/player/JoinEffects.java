@@ -100,6 +100,7 @@ public class JoinEffects extends Module {
 		Player player = event.getPlayer();
 		if (inDisabledWorld(player.getLocation())) return;
 		if (firstJoinOnly && player.hasPlayedBefore()) return;
+		if (!getPlugin().getProfileManager().get(player).isJoinEffects()) return;
 
 		Location location = player.getLocation();
 		getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {

@@ -89,6 +89,7 @@ public class AutoBroadcast extends Module implements Runnable {
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (inDisabledWorld(player.getLocation())) continue;
+			if (!getPlugin().getProfileManager().get(player).isAnnouncements()) continue;
 			for (String line : announcement.lines()) {
 				Text.send(player, line);
 			}

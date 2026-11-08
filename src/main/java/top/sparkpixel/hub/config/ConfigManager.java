@@ -28,12 +28,17 @@ public class ConfigManager {
 			"modules/world-settings",
 			"modules/join",
 			"modules/join-effects",
-			"modules/join-items",
-			"modules/player-hider",
 			"modules/pvp",
 			"modules/teleportation-bow",
 			"modules/trampoline",
-			"modules/drift"
+			"modules/progression",
+			"modules/parkour",
+			"modules/collectibles",
+			"modules/shop",
+			"modules/events",
+			"modules/guide",
+			"modules/news",
+			"modules/servers"
 	};
 
 	private final Map<ConfigType, ConfigHandler> configurations;
