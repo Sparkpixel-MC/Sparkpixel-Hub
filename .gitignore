@@ -6,7 +6,7 @@
 build/
 .gradle
 .gradle-home/
-gradle
+# 不要忽略 gradle/ 目录，否则 gradle/wrapper 无法提交
 
 ### Intellij ###
 .idea/
@@ -85,6 +85,7 @@ local.properties
 
 # Package Files #
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
 *.war
 *.ear
 /lib
