@@ -31,7 +31,10 @@ import top.sparkpixel.hub.utility.Locations;
 import top.sparkpixel.hub.hook.SparkChessHook;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -63,7 +66,7 @@ public class EngagementManager extends Module {
 	private final List<GuideStep> guide = new ArrayList<>();
 	private final Map<String, ServerEntry> servers = new LinkedHashMap<>();
 
-	private Material menuMaterial = Material.COMPASS;
+	private Material menuMaterial = Material.NETHER_STAR;
 	private int menuSlot = 4;
 	private String menuName = "<gradient:#9863E7:#545eb6><bold>Sparkpixel Hub</bold></gradient>";
 	private List<String> menuLore = List.of("<gray>Right-click to open the hub menu");
@@ -112,7 +115,8 @@ public class EngagementManager extends Module {
 
 		ConfigurationSection menu = config.getConfigurationSection("progression.menu-item");
 		if (menu != null) {
-			try { menuMaterial = Material.valueOf(menu.getString("material", "COMPASS").toUpperCase()); } catch (Exception ignored) {}
+			try { menuMaterial = Material.valueOf(menu.getString("material", "NETHER_STAR").toUpperCase()); } catch (Exception ignored) {}
+			if (menuMaterial == Material.COMPASS) menuMaterial = Material.NETHER_STAR;
 			menuSlot = menu.getInt("slot", 4);
 			menuName = menu.getString("name", menuName);
 			menuLore = menu.getStringList("lore");
@@ -547,7 +551,11 @@ public class EngagementManager extends Module {
 				"<gray>公会: <white>" + socialGuild,
 				"<gray>等级: <white>" + profile.getLevel(),
 				"<gray>金币: <gold>" + profile.getCoins(),
-				"<dark_gray>点击查看完整资料")));
+				"<gray>游玩时长: <white>" + formatPlaytime(profile.getPlaytimeSeconds()),
+				"<gray>跑酷最佳: <white>" + (profile.getParkourBest() == 0 ? "无" : top.sparkpixel.hub.module.modules.parkour.ParkourManager.format(profile.getParkourBest())),
+				"<gray>成就: <white>" + profile.getAchievements().size()
+						+ " <gray>收集品: <white>" + profile.getCollectibles().size(),
+				"<dark_gray>右键查看完整档案")));
 		meta.getPersistentDataContainer().set(statsKey, PersistentDataType.BYTE, (byte) 1);
 		item.setItemMeta(meta);
 		return item;
@@ -645,35 +653,35 @@ public class EngagementManager extends Module {
 	}
 
 	private org.bukkit.inventory.Inventory buildMain(Player player) {
-		InventoryBuilder menu = base("<gradient:#9863E7:#545eb6><bold>Sparkpixel Hub</bold></gradient>");
+		InventoryBuilder menu = base("<gradient:#9863E7:#545eb6><bold>Sparkpixel Hub</bold></gradient>", 5);
 		menu.setItem(4, button(Material.PLAYER_HEAD, "<gradient:#9863E7:#545eb6><bold>SP 菜单</bold></gradient>",
 				List.of("<gray>Sparkpixel Hub", "<dark_gray>大厅总菜单"), null));
-		menu.setItem(20, button(Material.COMPASS, "<aqua><bold>服务器选择</bold>", List.of("<gray>查看服务器状态并快速加入"), p -> open(p, servers.isEmpty() ? "serverselector" : "servers")));
-		menu.setItem(21, button(Material.WRITABLE_BOOK, "<yellow><bold>任务</bold>", List.of("<gray>每日与每周目标"), p -> open(p, "quests")));
-		menu.setItem(22, button(Material.CLOCK, "<gold><bold>每日签到</bold>", List.of("<gray>连续签到领取金币"), p -> open(p, "daily")));
-		menu.setItem(23, button(Material.FEATHER, "<green><bold>跑酷</bold>", List.of("<gray>挑战个人最佳成绩"), p -> open(p, "parkour")));
-		menu.setItem(24, button(Material.PLAYER_HEAD, "<light_purple><bold>个人资料</bold>", List.of("<gray>等级、金币与统计"), p -> open(p, "profile")));
-		menu.setItem(29, button(Material.COMPARATOR, "<gray><bold>设置</bold>", List.of("<gray>特效、公告与可见性"), p -> open(p, "settings")));
-		menu.setItem(30, button(Material.EMERALD, "<green><bold>商店</bold>", List.of("<gray>购买外观与粒子"), p -> open(p, "shop")));
-		menu.setItem(31, button(Material.NETHER_STAR, "<gold><bold>成就</bold>", List.of("<gray>查看已解锁成就"), p -> open(p, "achievements")));
-		menu.setItem(32, button(Material.GOLD_INGOT, "<yellow><bold>排行榜</bold>", List.of("<gray>金币与跑酷排名"), p -> open(p, "leaderboard")));
-		menu.setItem(33, button(Material.CHEST, "<gold><bold>收集品</bold>", List.of("<gray>寻找大厅隐藏收集品"), p -> open(p, "collectibles")));
-		menu.setItem(38, button(Material.BELL, "<red><bold>活动</bold>", List.of("<gray>查看当前与下一场活动"), p -> open(p, "events")));
-		menu.setItem(39, button(Material.BOOK, "<blue><bold>新闻</bold>", List.of("<gray>服务器更新与公告"), p -> open(p, "news")));
-		menu.setItem(25, button(Material.BOW, "<light_purple><bold>传送弓</bold>", List.of("<gray>获得一把大厅传送弓"), p -> {
+		menu.setItem(10, button(Material.BOW, "<light_purple><bold>传送弓</bold>", List.of("<gray>获得一把大厅传送弓"), p -> {
 			var bow = (top.sparkpixel.hub.module.modules.player.TeleportationBow) getPlugin().getModuleManager().getModule(ModuleType.TELEPORTATION_BOW);
 			if (bow != null) bow.giveBow(p);
 		}));
-		menu.setItem(34, button(Material.SLIME_BALL, "<green><bold>蹦床</bold>", List.of("<gray>VIP 可放置大厅蹦床"), p -> {
+		menu.setItem(11, button(Material.NETHER_STAR, "<aqua><bold>服务器选择</bold>", List.of("<gray>查看服务器状态并快速加入"), p -> open(p, servers.isEmpty() ? "serverselector" : "servers")));
+		menu.setItem(12, button(Material.WRITABLE_BOOK, "<yellow><bold>任务</bold>", List.of("<gray>每日与每周目标"), p -> open(p, "quests")));
+		menu.setItem(13, button(Material.CLOCK, "<gold><bold>每日签到</bold>", List.of("<gray>连续签到领取金币"), p -> open(p, "daily")));
+		menu.setItem(14, button(Material.FEATHER, "<green><bold>跑酷</bold>", List.of("<gray>挑战个人最佳成绩"), p -> open(p, "parkour")));
+		menu.setItem(15, button(Material.PLAYER_HEAD, "<light_purple><bold>个人资料</bold>", List.of("<gray>等级、金币与统计"), p -> open(p, "profile")));
+		menu.setItem(16, button(Material.SLIME_BALL, "<green><bold>蹦床</bold>", List.of("<gray>VIP 可放置大厅蹦床"), p -> {
 			var trampoline = (top.sparkpixel.hub.module.modules.world.Trampoline) getPlugin().getModuleManager().getModule(ModuleType.TRAMPOLINE);
 			if (trampoline == null) { Text.send(p, "<red>蹦床未启用。"); return; }
 			if (!trampoline.canUse(p)) { Text.send(p, "<red>只有 VIP 可以使用蹦床。"); return; }
 			trampoline.place(p);
 			p.closeInventory();
 		}));
+		menu.setItem(29, button(Material.COMPARATOR, "<gray><bold>设置</bold>", List.of("<gray>特效、公告与可见性"), p -> open(p, "settings")));
+		menu.setItem(30, button(Material.EMERALD, "<green><bold>商店</bold>", List.of("<gray>购买外观与粒子"), p -> open(p, "shop")));
+		menu.setItem(31, button(Material.GOLD_INGOT, "<gold><bold>成就</bold>", List.of("<gray>查看已解锁成就"), p -> open(p, "achievements")));
+		menu.setItem(32, button(Material.AMETHYST_SHARD, "<yellow><bold>排行榜</bold>", List.of("<gray>金币与跑酷排名"), p -> open(p, "leaderboard")));
+		menu.setItem(33, button(Material.CHEST, "<gold><bold>收集品</bold>", List.of("<gray>寻找大厅隐藏收集品"), p -> open(p, "collectibles")));
+		menu.setItem(38, button(Material.BELL, "<red><bold>活动</bold>", List.of("<gray>查看当前与下一场活动"), p -> open(p, "events")));
+		menu.setItem(39, button(Material.BOOK, "<blue><bold>新闻</bold>", List.of("<gray>服务器更新与公告"), p -> open(p, "news")));
 		menu.setItem(40, button(Material.MAP, "<green><bold>新手指南</bold>", List.of("<gray>第一次来？从这里开始"), p -> open(p, "guide")));
 		menu.setItem(41, button(Material.PAPER, "<gray><bold>反馈</bold>", List.of("<gray>使用 /sphub feedback <text>"), p -> open(p, "feedback")));
-		menu.setItem(49, button(Material.BARRIER, "<red>关闭", List.of(), Player::closeInventory));
+		menu.setItem(44, button(Material.BARRIER, "<red>关闭", List.of(), Player::closeInventory));
 		return menu.getInventory();
 	}
 
@@ -715,14 +723,90 @@ public class EngagementManager extends Module {
 
 	private org.bukkit.inventory.Inventory buildProfile(Player player) {
 		PlayerProfile profile = getPlugin().getProfileManager().get(player);
-		InventoryBuilder menu = base("<light_purple><bold>个人资料</bold>");
-		menu.setItem(22, button(Material.PLAYER_HEAD, "<light_purple><bold>" + player.getName() + "</bold>",
-				List.of("<gray>等级: <white>" + profile.getLevel(), "<gray>经验: <white>" + profile.getXp(),
-						"<gray>金币: <gold>" + profile.getCoins(), "<gray>游玩时长: <white>" + (profile.getPlaytimeSeconds() / 3600) + " 小时",
-						"<gray>跑酷最佳: <white>" + (profile.getParkourBest() == 0 ? "无" : top.sparkpixel.hub.module.modules.parkour.ParkourManager.format(profile.getParkourBest())),
-						"<gray>成就: <white>" + profile.getAchievements().size(), "<gray>收集品: <white>" + profile.getCollectibles().size()), null));
-		menu.setItem(49, button(Material.BARRIER, "<red>返回", List.of(), p -> open(p, "main")));
+		InventoryBuilder menu = base("<light_purple><bold>个人资料</bold>", 5);
+
+		menu.setItem(4, headButton(player, "<light_purple><bold>" + player.getName() + "</bold>",
+				List.of("<gray>星港旅人档案", "<gray>等级: <white>" + profile.getLevel(),
+						"<gray>经验: <white>" + profile.getXp(), "<gray>金币: <gold>" + profile.getCoins()), null));
+
+		menu.setItem(10, button(Material.EXPERIENCE_BOTTLE, "<green><bold>等级</bold>",
+				List.of("<gray>当前等级: <white>" + profile.getLevel(),
+						"<gray>经验: <white>" + profile.getXp(),
+						"<gray>升级所需: <white>" + (100 - profile.getXp() % 100) + " 经验"), null));
+		menu.setItem(11, button(Material.GOLD_INGOT, "<gold><bold>金币</bold>",
+				List.of("<gray>余额: <gold>" + profile.getCoins(),
+						"<gray>来源: 任务、跑酷、签到", "<dark_gray>商店可购买外观"), null));
+		menu.setItem(12, button(Material.CLOCK, "<aqua><bold>游玩时长</bold>",
+				List.of("<gray>累计: <white>" + formatPlaytime(profile.getPlaytimeSeconds()),
+						"<gray>成就进度: <white>" + (profile.getPlaytimeSeconds() / 60) + " 分钟"), null));
+		menu.setItem(13, button(Material.FEATHER, "<green><bold>跑酷</bold>",
+				List.of("<gray>最佳: <white>" + (profile.getParkourBest() == 0 ? "无" : top.sparkpixel.hub.module.modules.parkour.ParkourManager.format(profile.getParkourBest())),
+						"<gray>完成次数: <white>" + profile.getParkourRuns(),
+						"<dark_gray>点击进入跑酷"), p -> open(p, "parkour")));
+		menu.setItem(14, button(Material.NETHER_STAR, "<gold><bold>成就</bold>",
+				List.of("<gray>已解锁: <white>" + profile.getAchievements().size() + "/" + achievements.size(),
+						"<dark_gray>点击查看成就"), p -> open(p, "achievements")));
+		menu.setItem(15, button(Material.CHEST, "<gold><bold>收集品</bold>",
+				List.of("<gray>已收集: <white>" + profile.getCollectibles().size() + "/" + collectibles.size(),
+						"<dark_gray>点击查看图鉴"), p -> open(p, "collectibles")));
+		menu.setItem(16, button(Material.BLAZE_POWDER, "<red><bold>连续签到</bold>",
+				List.of("<gray>连续: <white>" + profile.getLoginStreak() + " 天",
+						"<gray>上次签到: <white>" + (profile.getLastLoginDate().isBlank() ? "从未" : profile.getLastLoginDate())), null));
+
+		menu.setItem(29, button(Material.NAME_TAG, "<light_purple><bold>好友</bold>",
+				List.of("<gray>好友信息: <white>" + socialFriends,
+						"<dark_gray>社交系统接入后显示"), null));
+		menu.setItem(30, button(Material.SHIELD, "<blue><bold>公会</bold>",
+				List.of("<gray>公会信息: <white>" + socialGuild,
+						"<dark_gray>公会系统接入后显示"), null));
+		menu.setItem(31, button(Material.WRITABLE_BOOK, "<gray><bold>首次加入</bold>",
+				List.of("<gray>时间: <white>" + formatDate(profile.getFirstJoin())), null));
+		menu.setItem(32, button(Material.MAP, "<gray><bold>最后在线</bold>",
+				List.of("<gray>时间: <white>" + formatDate(profile.getLastSeen())), null));
+		menu.setItem(33, button(Material.AMETHYST_SHARD, "<yellow><bold>金币排名</bold>",
+				List.of("<gray>当前排名: <white>#" + coinRank(player)), null));
+
+		menu.setItem(38, button(Material.BARRIER, "<red>返回大厅", List.of(), p -> open(p, "main")));
+		menu.setItem(39, button(Material.COMPARATOR, "<gray><bold>设置</bold>", List.of("<gray>调整大厅体验"), p -> open(p, "settings")));
+		menu.setItem(40, button(Material.EMERALD, "<green><bold>商店</bold>", List.of("<gray>购买外观"), p -> open(p, "shop")));
+		menu.setItem(41, button(Material.AMETHYST_SHARD, "<yellow><bold>排行榜</bold>", List.of("<gray>查看全服排名"), p -> open(p, "leaderboard")));
+		menu.setItem(44, button(Material.BARRIER, "<red>关闭", List.of(), Player::closeInventory));
 		return menu.getInventory();
+	}
+
+	private InventoryItem headButton(Player player, String name, List<String> lore, Consumer<Player> action) {
+		ItemStack stack = new ItemStack(Material.PLAYER_HEAD);
+		SkullMeta meta = (SkullMeta) stack.getItemMeta();
+		if (meta != null) {
+			meta.setOwningPlayer(player);
+			meta.displayName(Text.parse(name));
+			meta.lore(Text.parseList(lore));
+			stack.setItemMeta(meta);
+		}
+		InventoryItem item = new InventoryItem(stack);
+		if (action != null) item.addClickAction(action::accept);
+		return item;
+	}
+
+	private String formatPlaytime(long seconds) {
+		long hours = seconds / 3600;
+		long minutes = (seconds % 3600) / 60;
+		return hours > 0 ? hours + " 小时 " + minutes + " 分钟" : minutes + " 分钟";
+	}
+
+	private String formatDate(long millis) {
+		if (millis <= 0) return "未知";
+		return Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault())
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+	}
+
+	private int coinRank(Player player) {
+		var profiles = getPlugin().getProfileManager().all();
+		profiles.sort(Comparator.comparingLong(PlayerProfile::getCoins).reversed());
+		for (int i = 0; i < profiles.size(); i++) {
+			if (profiles.get(i).getUuid().equals(player.getUniqueId())) return i + 1;
+		}
+		return profiles.size() + 1;
 	}
 
 	private org.bukkit.inventory.Inventory buildSettings(Player player) {
