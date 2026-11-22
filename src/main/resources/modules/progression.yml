@@ -3,7 +3,7 @@ progression:
   enabled: true
 
   menu-item:
-    material: COMPASS
+    material: NETHER_STAR
     slot: 4
     name: "<gradient:#9863E7:#545eb6><bold>Sparkpixel Hub</bold></gradient>"
     lore:
